@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	서비스 인터페이스를 namespace로 지정한다. 컨트롤러에서 해당
+	인터페이스를 통해 Mapper 메서드를 호출하게 된다.
+ -->
+<mapper namespace="com.study.springboot.jdbc.IMyUserDao">
+<!-- 
+	네임스페이스로 지정된 인터페이스의 select()메서드를 통해 해당
+	엘리먼트가 실행된다. 파라미터와 결과셋 모두 MyUserDTO객체를
+	사용하고 있다. select엘리먼트는 쿼리문을 실행한 후 List컬렉션으로
+	반환한다.
+ -->
+	<select id="getUser" resultType="com.study.springboot.jdbc.MyUserDTO">
+		select id, name from myuser
+	</select>
+</mapper>

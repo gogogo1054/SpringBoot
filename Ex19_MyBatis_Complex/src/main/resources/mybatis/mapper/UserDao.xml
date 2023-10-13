@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.jdbc.IDao">
+
+	<!-- <select id="getEmployee" resultType="com.study.springboot.jdbc.UserDTO">
+		select A.ename, B.dno, B.dname
+		from employee A, B.dname
+		from employee A, department B
+		where A.dno = B.dno
+		and B.dno = 10
+	</select> -->
+	
+	<select id="getEmployee" resultType="com.study.springboot.jdbc.UserDTO">
+		select A.ename as ename1, B.deptno as deptno1, B.dname as dname1
+		from emp A, dept B
+		where A.deptno = B.deptno
+		and B.deptno = 10
+	</select>
+</mapper>
+
+<!-- 
+1. sql문 뒤에 세미콜론이 절대로 들어가면 안된다.
+2. 여기서 사용한 컬럼명으로 DTO(Value Object)의 필드명을 만들어야 한다.
+3. select a.dno, b.dno 등의 경우 컬럼명에 alias를 사용하지 않으면 문제가 생긴다.
+4. ResultMap vs VO : VO가 더 빠르다.
+	"iBatis 개발진에서 VO을 권장한다.
+	왜냐하면 Map은 (iBatis에서) 수치상 훨씬 느리다고 한다."
+ -->

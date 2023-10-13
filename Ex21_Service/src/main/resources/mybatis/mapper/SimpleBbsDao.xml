@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	서비스 인터페이스를 namespace로 지정한다. 컨트롤러에서 해당 인터페이스를
+	통해 Mapper의 메서드를 호출하게 된다.
+ -->
+<mapper namespace="com.study.springboot.dao.ISimpleBbsDao">
+
+	<!-- 
+		네임스페이스로 지정된 인터페이스의 listDao()메서드를 통해 해당
+		엘리먼트가 실행된다. 파라미터와 결과셋 모두 SimpleBbsDto객체를
+		사용하고 있다. select()엘리먼트는 쿼리문을 실행한 후 List컬렉션으로
+		반환한다.
+	 -->
+	<select id="listDao" resultType="com.study.springboot.dto.SimpleBbsDto">
+		<!-- listDo()의 select문 -->
+		select * from simple_bbs order by id desc
+	</select>
+	
+	<!-- 파라미터의 순서대로 접근하며, 인덱스 0번부터 시작한다. -->
+	<select id="viewDao" resultType="com.study.springboot.dto.SimpleBbsDto">
+		<!-- 1개이므로 파라미터값이 있어야함 -->
+		select * from simple_bbs where id = #{0}
+	</select>
+
+	<!-- 
+		Map을 통해 파라미터가 전달되므로 parameterType에 패키지를 포함한
+		클래스 경로를 기술하고, 
+	 -->	
+	<insert id="writeDao" parameterType="java.util.HashMap">
+		insert into simple_bbs (id, writer, title, content)
+			values (simple_bbs_seq.nextval, #{item1}, #{item2}, #{item3})
+	</insert>
+	
+	<!-- 
+		@Param 어노테이션에서 지정한 이름을 인파라미터로 사용한다.
+		deleteDao(@Param("_id")String id)이와 같이 정의되어 있다.
+	 -->	
+	<delete id="deleteDao">
+		<!-- 이름을 사용하기 때문에 가독성이 좋다. -->
+		delete from simple_bbs where id = #{_id}
+	</delete>
+	
+	<select id="articleCount" resultType="_int">
+		select count(*) from simple_bbs
+	</select>
+</mapper>

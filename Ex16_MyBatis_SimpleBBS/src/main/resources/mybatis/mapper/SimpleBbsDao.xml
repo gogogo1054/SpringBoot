@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	서비스 인터페이스를 namespace로 지정한다. 컨트롤러에서 해당 인터페이스를
+	통해 Mapper의 메서드를 호출하게 된다.
+ -->
+<mapper namespace="com.study.springboot.dao.ISimpleBbsDao">
+
+	<!-- 
+		네임스페이스로 지정된 인터페이스의 listDao()메서드를 통해 해당
+		엘리먼트가 실행된다. 파라미터와 결과셋 모두 SimpleBbsDto객체를
+		사용하고 있다. select()엘리먼트는 쿼리문을 실행한 후 List컬렉션으로
+		반환한다.
+	 -->
+	<select id="listDao" resultType="com.study.springboot.dto.SimpleBbsDto">
+		<!-- listDo()의 select문 -->
+		select * from simple_bbs order by id desc
+	</select>
+	
+	<!-- 한 개의 게시물 출력 -->
+	<select id="viewDao" resultType="com.study.springboot.dto.SimpleBbsDto">
+		<!-- 1개이므로 파라미터값이 있어야함 -->
+		select * from simple_bbs where id = #{param1}
+	</select>
+	
+	<!-- 게시물 등록. DTO의 멤버변수명을 통해 저장된 값을 쿼리문에 적용한다. -->
+	<insert id="writeDao" >
+		<!-- 결과 값이 없으므로 리턴타입이 필요 없음 -->
+		insert into simple_bbs (id, writer, title, content)
+			values (simple_bbs_seq.nextval, #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="deleteDao">
+		delete from simple_bbs where id = #{param1}
+	</delete>
+</mapper>
