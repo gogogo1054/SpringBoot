@@ -28,7 +28,7 @@ public class WebSecurityConfig  {
         	// 이것이 없으면 기본 폼이 나옴.
 			.loginPage("/loginForm") 			// default : /login
 		    .loginProcessingUrl("/j_spring_security_check")	// 바꾸면 안됨.
-	        .failureUrl("/loginError") 			// default : /login?error
+//	        .failureUrl("/loginForm?error") 			// default : /login?error
 	        //.defaultSuccessUrl("/")
 	        .usernameParameter("j_username")	// default : j_username
 	        .passwordParameter("j_password") 	// default : j_password
@@ -46,8 +46,8 @@ public class WebSecurityConfig  {
         
 		return http.build();  
     }
- 
-    @Autowired
+	
+	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
         	.withUser("user").password(passwordEncoder().encode("1234")).roles("USER")
